@@ -1,8 +1,8 @@
 package com.artgallery.service;
 
-import com.artgallery.model.ArtObject;
+import com.artgallery.model.ArtObjectList;
 
 public interface ArtGalleryService {
-	ArtObject getArtGallerybyObjectId(Long objectId);
+	ArtObjectList getAllObjectIds();
 
 }
