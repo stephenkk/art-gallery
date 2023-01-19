@@ -9,10 +9,13 @@ import com.artgallery.service.ArtGalleryService;
 
 @RestController
 @RequestMapping("/api/v1/art-gallery")
+
+//url = http://<server-address>/api/v1/art-gallery
 public class ArtGalleryController {
 	
 	private ArtGalleryService artGalleryService;
 	
+	//constructor
 	public ArtGalleryController(ArtGalleryService artGalleryService) {
 		super();
 		this.artGalleryService = artGalleryService;

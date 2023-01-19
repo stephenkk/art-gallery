@@ -15,7 +15,7 @@ public class ArtGalleryServiceImpl implements ArtGalleryService{
 	ArtGalleryFeign artGalleryFeign;
 
 
-
+	//define getAllAbjectIds() method with artGalleryFeign.artObjectList()
 	@Override
 	public ArtObjectList getAllObjectIds() {
 		ArtObjectList artObjectList = artGalleryFeign.artObjectList();
