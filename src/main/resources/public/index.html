@@ -1,44 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Spring boot index page example</title>
+	<meta charset="UTF-8">
+	<title>Art Gallery</title>
 </head>
+
 <body>
-   <!-- <form action="/api/v1/art-gallery" method="get"> -->
-			
-			<input type="SUBMIT" value="Submit"onclick="myFunction()"  />
-	 <!--	</form> -->
+	<h3>Enter department id to view museum images</h3>
+    Department ID: <input id="dId" type="text" name="departmentID" value="0">
+	<input type="SUBMIT" value="Load Images" onclick="myFunction()" />
+	
+	<input type="SUBMIT" value="Stop Images" onclick="stopInterval()" />
+	<img id="img_id" >
 </body>
+
 </html>
-<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+
+
 <script>
 	
-async function myFunction() {
-    let response = await fetch('http://localhost:8080/api/v1/art-gallery');
-    let data = await response.json();
-   // console.log(data);
-    processImages(data);
-}
+	var timeOut ;
+	
+	function stopInterval() {
+		clearTimeout(timeOut)
+	}
 
-const rp = require('request-promise')
-let URL = "https://collectionapi.metmuseum.org/public/collection/v1/objects/"
+	async function myFunction() {
+		var dID = document.getElementById('dId').value;
+		let response = await fetch('http://localhost:8080/api/v1/art-gallery'+'?departmentID=' + dID);
+		let data = await response.json();
+		// console.log(data);
+		processImages(data);
+	}
 
-async function processImages(data){
-    let result;
-    for(let i = 0; i < data.objectIDs.length; i++){
-       let response  = await make_api_call(data.objectIDs[i]);
-       result  =  await response.json();
-        console.log(result.primaryImageSmall);
-    }
-   // return user_list;
-}
-// this will hit api https://collectionapi.metmuseum.org/public/collection/v1/objects/1 
-function make_api_call(id){
-    return rp({
-        url : `${URL}${id}`,
-        method : 'GET',
-        json : true
-    })
-}
+	let URL = "https://collectionapi.metmuseum.org/public/collection/v1/objects/"
+
+
+
+	async function processImages(data) {
+		let result;
+		let interval = 10000; //five second
+		data.objectIDs.forEach((id, index) => {
+
+		timeOut = setTimeout(() => {
+				console.log(index * interval);
+				let img_src_promise = make_api_call(id); // at this point of time when we recieve the img_src_promise , it is actuallu a promise and the
+				//value of img_src_promise will be retive after we call then method over this promise.
+				//dynamically create img tag in html 
+				
+				var img = document.getElementById('img_id');
+				
+				img_src_promise.then((img_src) => { // img_src holds the actual value inside this promise.
+				//assign the img_src_promise to img.src
+				img.src = img_src;
+				});
+				
+			}, index * interval)
+		});
+
+
+		// return user_list;
+	}
+	// this will hit api https://collectionapi.metmuseum.org/public/collection/v1/objects/1 
+	async function make_api_call(id) {
+		console.log("img downloaded-0");
+		let response = await fetch(URL + id);
+		let data = await response.json();
+		console.log("img downloaded-1");
+		return data.primaryImageSmall;
+	}
+
 </script>
