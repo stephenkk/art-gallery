@@ -1,6 +1,8 @@
 package com.artgallery.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,10 +36,14 @@ public class ArtGalleryControllerTests {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 		
 	}
-	
+	//a test for a department number that has images
 	@Test
 	public void getAllDeptObjectIdsTest() throws Exception {
 		ArtObjectList artObjectList = new ArtObjectList();
+		artObjectList.setTotal(13612);
+		int [] arr = {1,2};
+		artObjectList.setObjectIDs(arr);
+	
 		when(artGalleryService.getAllObjectIds(4)).thenReturn(artObjectList);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/art-gallery").param("departmentID", "4");
@@ -47,8 +53,38 @@ public class ArtGalleryControllerTests {
 		ArtObjectList artObjectListResponse = mapper.readValue(result.getResponse().getContentAsString(), ArtObjectList.class);
 		
 		assertThat(artObjectListResponse).isNotNull();
+		assertEquals(artObjectListResponse.getTotal(),13612);
+		assertEquals(artObjectListResponse.getObjectIDs()[0], arr[0]);
+		assertEquals(artObjectListResponse.getObjectIDs()[1], arr[1]);
+		
 		
 		
 	}
+	// at test for a department number that doesn't have images
+	@Test
+	public void getEmptyResponseTest() throws Exception {
+		ArtObjectList artObjectList = new ArtObjectList();
+		artObjectList.setTotal(0);
+		int [] arr = {};
+		artObjectList.setObjectIDs(arr);
+	
+		when(artGalleryService.getAllObjectIds(0)).thenReturn(artObjectList);
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/art-gallery").param("departmentID", "0");
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		ArtObjectList artObjectListResponse = mapper.readValue(result.getResponse().getContentAsString(), ArtObjectList.class);
+		
+		assertThat(artObjectListResponse).isNotNull();
+		assertEquals(artObjectListResponse.getTotal(),0);
+		assertThat(artObjectListResponse.getObjectIDs()).isEmpty();
+		
+		
+		
+		
+	}
+
+	
 
 }

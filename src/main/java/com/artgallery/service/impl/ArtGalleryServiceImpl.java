@@ -11,8 +11,8 @@ import com.artgallery.service.ArtGalleryService;
 @Service
 public class ArtGalleryServiceImpl implements ArtGalleryService {
 	// feign object will get created at earlier spring application startup process,
-	@Autowired // autowire will simply assign already created object of feing to below
-				// variable.
+	@Autowired // autowire will simply assign already created object of feign to the
+				// variable below
 	ArtGalleryFeign artGalleryFeign;
 
 	// define getAllAbjectIds() method with artGalleryFeign.artObjectList()
@@ -30,5 +30,3 @@ public class ArtGalleryServiceImpl implements ArtGalleryService {
 
 }
 
-//@SpringBootApplication
-//@Bean, @Cofiguration, @Autowire. @Controller @RestCOntroller, @Service, @Component, @Repository, 

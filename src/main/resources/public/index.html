@@ -40,7 +40,7 @@
 		let data = await response.json();
 		if(data.total == 0){
 			//if no data in response will give alert to user
-			alert('No Images with this document Id. try again!!!');
+			alert('This department number has no stored images. Please try again.');
 			document.getElementById('load').disabled = false;
 			return;
 		}
@@ -57,7 +57,7 @@
 			    if(!stopflag) {
 			    let img_promise = make_api_call(id);// at this point of time when we recieve the img_promise ,
 				                                     // it is actually a promise and the
-				                                     //value of img_promise will be retive after we call then method over this promise.
+				                                     //value of img_promise will be retrieved after we call then method over this promise.
 				
 				let img = document.getElementById('img_id');
 				    img_promise.then((data) => { // data holds the value inside this promise.
