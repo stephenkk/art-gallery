@@ -11,9 +11,9 @@ import com.artgallery.service.ArtGalleryService;
 //url = http://<server-address>/api/v1/art-gallery?departmentID=1,2,
 public class ArtGalleryController {
 
-	private ArtGalleryService artGalleryService;
+	private ArtGalleryService artGalleryService; // at this point it is null
 
-	// constructor
+	// constructor injection
 	public ArtGalleryController(ArtGalleryService artGalleryService) {
 		super();
 		this.artGalleryService = artGalleryService;
