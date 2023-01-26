@@ -14,3 +14,4 @@ public class ArtGalleryApplication {
 
 }
 //test comment
+// new comment
