@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<title>Art Gallery</title>
 </head>
-
+<p>To stop viewing in this department and enter another press here:<br></p>
+	<button onClick="window.location.reload();">Stop</button>
 <body>
 	<h3>Enter department id to view museum images</h3>
     Department ID: <input id="dId" type="number" name="departmentID" value="0"><br>
@@ -63,6 +64,7 @@
 				    img_promise.then((data) => { // data holds the value inside this promise.
 					img.src = data.primaryImageSmall;    //assign the img src with primaryImageSmall
 					img.title = data.objectName; //assign img title with objectName
+					img.alt = "no image" // provide message if broken image link is displayed
 				});
 			  }
 			}, index * interval)
