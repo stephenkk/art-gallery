@@ -5,14 +5,26 @@
 	<meta charset="UTF-8">
 	<title>Art Gallery</title>
 </head>
-<p>To stop viewing in this department and enter another press here:<br></p>
-	<button onClick="window.location.reload();">Stop</button>
+
 <body>
 	<h3>Enter department id to view museum images</h3>
+	<ul>
+		<li>1. American Decorative Arts  &emsp;   3.Ancient Near East Art   &emsp;   4. Arms and Armor  &emsp;   5. Arts of Africa, Oceania, and the Americas</li>
+		<li>6. Asian Art &emsp;7. The Cloisters &emsp;8. The Costume Institute &emsp;9. Drawings and Prints</li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
     Department ID: <input id="dId" type="number" name="departmentID" value="0"><br>
-	<input id="load" type="SUBMIT" value="Load Images" onclick="loadImages()" />
+    <br>
+    <input id="load" type="SUBMIT" value="Load Images" onclick="loadImages()" />
+    <p>To stop viewing in this department and enter another press here: <button onClick="window.location.reload();">Stop</button></p>
+	
+	
+	
 	
 	<img id="img_id" onmouseover="stopInterval()" onmouseout="resumeInterval()" >
+	
 </body>
 
 </html>
