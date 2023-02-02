@@ -5,11 +5,13 @@
 	<meta charset="UTF-8">
 	<title>Art Gallery</title>
 </head>
-
+<p>To stop viewing in this department and enter another press here:<br></p>
+	<button onClick="window.location.reload();">Stop</button>
 <body>
 	<h3>Enter department id to view museum images</h3>
     Department ID: <input id="dId" type="number" name="departmentID" value="0"><br>
 	<input id="load" type="SUBMIT" value="Load Images" onclick="loadImages()" />
+	
 	
 	<img id="img_id" onmouseover="stopInterval()" onmouseout="resumeInterval()" >
 </body>
@@ -36,7 +38,7 @@
 	async function loadImages() {
 		let dID = document.getElementById('dId').value;
 		document.getElementById('load').disabled = true;
-		let response = await fetch('http://localhost:8080/api/v1/art-gallery'+'?departmentID=' + dID);
+		let response = await fetch('/api/v1/art-gallery'+'?departmentID=' + dID);
 		let data = await response.json();
 		if(data.total == 0){
 			//if no data in response will give alert to user
